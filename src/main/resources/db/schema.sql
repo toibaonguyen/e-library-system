@@ -1,20 +1,21 @@
 DROP DATABASE IF EXISTS e_library;
 CREATE DATABASE e_library;
+USE e_library;
 
-CREATE TABLE user_id(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+CREATE TABLE User(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(20) NOT NULL,
     role ENUM('Member','Admin') NOT NULL,
     phone_number VARCHAR(15),
-    status ENUM('Active','Inactive','Banned')
+    status ENUM('Active','Inactive','Banned'),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Category(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) UNIQUE NOT NULL,
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -22,7 +23,7 @@ CREATE TABLE Category(
 );
 
 CREATE TABLE Author(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     date_of_birth DATE,
     nationality VARCHAR(255),
@@ -33,7 +34,7 @@ CREATE TABLE Author(
 );
 
 CREATE TABLE Publisher(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     photo_url VARCHAR(255),
     biography TEXT,
@@ -43,7 +44,7 @@ CREATE TABLE Publisher(
 );
 
 CREATE TABLE Book(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     isbn VARCHAR(13),
     title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -63,7 +64,7 @@ CREATE TABLE Book(
 );
 
 CREATE TABLE BookImage(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     book_id INT NOT NULL,
     photo_url TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -71,7 +72,7 @@ CREATE TABLE BookImage(
 );
 
 CREATE TABLE Review(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     book_id INT NOT NULL,
     user_id INT NOT NULL,
     rating INT NOT NULL,
@@ -83,9 +84,9 @@ CREATE TABLE Review(
     CHECK(rating>0 AND rating<=5)
 );
 
---Bang danh cho viec dat truoc sach
+-- Bang danh cho viec dat truoc sach
 CREATE TABLE Reservation(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL, -- Người dùng đặt sách
     book_id INT NOT NULL, -- Sách được đặt
     reservation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -95,10 +96,12 @@ CREATE TABLE Reservation(
 --    cancelled la nguoi dung hoac he thong da huy
 --    completed la nguoi dung da muon sach
     due_date DATE, -- Hạn cuối giữ sách
-)
+    FOREIGN KEY (book_id) REFERENCES Book(id),
+    FOREIGN KEY (user_id) REFERENCES User(id)
+);
 
 CREATE TABLE BookBorrow(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     book_id INT NOT NULL,
     user_id INT NOT NULL,
     borrow_date DATETIME NOT NULL,
@@ -112,7 +115,7 @@ CREATE TABLE BookBorrow(
 );
 
 CREATE TABLE Fine(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     borrow_id INT NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
     is_paid BOOLEAN NOT NULL,
@@ -120,9 +123,9 @@ CREATE TABLE Fine(
     FOREIGN KEY (borrow_id) REFERENCES BookBorrow(id)
 );
 
---Bang chuyen cho nhung thong so cua he thong
+-- Bang chuyen cho nhung thong so cua he thong
 CREATE TABLE Setting (
-    setting_id INT AUTO_INCREMENT PRIMARY KEY,
+    setting_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL UNIQUE,
     value VARCHAR(255) NOT NULL,
     description TEXT
