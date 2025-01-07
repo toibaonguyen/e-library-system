@@ -9,7 +9,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Builder
-public class Reservation extends BaseEntity{
+public class Reservation extends BaseEntity<Integer>{
     private int userId;
     private int bookId;
     private LocalDateTime reservationDate;

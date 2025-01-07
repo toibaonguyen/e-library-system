@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class Review extends BaseEntity{
+public class Review extends BaseEntity<Integer>{
     private int bookId;
     private int userId;
     private int rating;

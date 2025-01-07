@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Builder
-public class Book extends BaseEntity{
+public class Book extends BaseEntity<Integer>{
     private String isbn;
     private String title;
     private String description;

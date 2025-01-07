@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Builder
-public class Author extends BaseEntity{
+public class Author extends BaseEntity<Integer>{
     private String name;
     private Date dateOfBirth;
     private String nationality;

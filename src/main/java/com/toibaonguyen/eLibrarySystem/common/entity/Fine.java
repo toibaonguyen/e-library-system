@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class Fine extends BaseEntity{
+public class Fine extends BaseEntity<Integer>{
     private int borrowId;
     private double amount;
     private boolean isPaid;

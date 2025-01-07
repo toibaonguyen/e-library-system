@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Builder
-public class User extends BaseEntity{
+public class User extends BaseEntity<Integer>{
     private String name;
     private String email;
     private String password;

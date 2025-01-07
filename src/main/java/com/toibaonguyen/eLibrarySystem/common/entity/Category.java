@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Builder
-public class Category extends BaseEntity{
+public class Category extends BaseEntity<Integer>{
     private String name;
     private String description;
     private LocalDateTime createdAt;

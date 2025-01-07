@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Setting extends  BaseEntity{
+public class Setting extends  BaseEntity<Integer>{
     private String name;
     private String value;
     private String description;

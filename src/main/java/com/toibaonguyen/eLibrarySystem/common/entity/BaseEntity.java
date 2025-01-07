@@ -6,6 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class BaseEntity {
-    protected int id;
+public abstract class BaseEntity<K> {
+    protected K id;
 }

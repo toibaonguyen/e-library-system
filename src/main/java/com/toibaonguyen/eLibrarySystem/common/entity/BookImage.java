@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class BookImage extends BaseEntity{
+public class BookImage extends BaseEntity<Integer>{
     private int bookId;
     private String photoUrl;
     private LocalDateTime createdAt;
